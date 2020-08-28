@@ -18,16 +18,16 @@ Sign up
                  <form action="{% url 'adduser' %}"  method="post" class="was-validated" >
                  {% csrf_token  %}
   <div class="form-group">
-    <label for="email">Email:</label>
-    <input type="name" class="form-control" placeholder="Enter email" id="email">
+    <label for="username">username:</label>
+    <input type="name" name="username" class="form-control" placeholder="Enter username" id="username">
   </div>
   <div class="form-group">
-    <label for="name">Name:</label>
-    <input type="name" class="form-control" placeholder="Enter name" id="name">
+    <label for="email">email:</label>
+    <input type="email" name="email" class="form-control" placeholder="Enter email" id="email">
   </div>
   <div class="form-group">
     <label for="pwd">Password:</label>
-    <input type="password" class="form-control" placeholder="Enter password" id="pwd">
+    <input type="password" name="password" class="form-control" placeholder="Enter password" id="pwd">
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form> 

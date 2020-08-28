@@ -28,19 +28,22 @@ def signin(request):
             else :
                 return  HttpResponseRedirect(reverse("adduser"))           
         except Exception as e :
-            print(e)
+            print(e) 
 
 def adduser(request):
+    
     if request.method != "POST":
         return render(request,"toDo/signup.html")
     else:
-
+        email = request.POST[""] 
+        print("request is                 " , request , email)
         try:
             email = request.POST.get("email") 
-            name = request.POST.get("name") 
+            name = request.POST.get("username") 
             password = request.POST.get("pwd") 
             # u = User(name=name,username=username,password=password)
             # u.save()
+            print(email,name,password)
             user = User.objects.create_user(name, email, password)
             user.save()
             usera = authenticate(request,username=name, password=password)
@@ -54,9 +57,10 @@ def adduser(request):
             print(e)
 
 
-def addtask(request):
+def addtask(request):   
     pass
 
 def home(request):
     if request.user.is_authenticated :
         print(request.user)
+        return HttpResponse("sdfsdf")
