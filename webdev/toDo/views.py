@@ -13,7 +13,22 @@ from django.contrib.auth import authenticate
 def index(request):
     render(request,)
     
-
+def signin(request):
+    if request.method !="POST":
+        return render(request,"toDo/signin.html")
+        # return HttpResponse("hkjhhh")
+    else:
+        try:
+            name = request.POST.get("name") 
+            password = request.POST.get("pwd")             
+            usera = authenticate(request,username=name, password=password)
+            if usera is not None:
+                login(request,usera)
+                return HttpResponseRedirect(reverse("home") )
+            else :
+                return  HttpResponseRedirect(reverse("adduser"))           
+        except Exception as e :
+            print(e)
 
 def adduser(request):
     if request.method != "POST":
@@ -31,8 +46,17 @@ def adduser(request):
             usera = authenticate(request,username=name, password=password)
             if usera is not None:
                 login(request,user)
-            else:
-                return HttpResponseRedirect(reverse("index"))
+                return HttpResponseRedirect(reverse("home") )
+            else :
+                return  HttpResponse("error occured")
         
         except Exception as e :
             print(e)
+
+
+def addtask(request):
+    pass
+
+def home(request):
+    if request.user.is_authenticated :
+        print(request.user)

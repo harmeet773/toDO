@@ -1,6 +1,6 @@
 {% extends 'toDo/base.html' %}
 {% block title %}
-Sign up
+sign in
 {% endblock title %}
 {% block body %} 
     <!-- Main content -->
@@ -11,16 +11,13 @@ Sign up
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Sign up</h3>
+                <h3 class="card-title">sign in</h3>
               </div>
               <!-- /.card-header --> 
               <!-- form start -->
-                 <form action="{% url 'adduser' %}"  method="post" class="was-validated" >
-                 {% csrf_token  %}
-  <div class="form-group">
-    <label for="email">Email:</label>
-    <input type="name" class="form-control" placeholder="Enter email" id="email">
-  </div>
+                 <form action="{% url 'signin' %}"  method="post" class="was-validated" >
+                 {%csrf_token%}
+
   <div class="form-group">
     <label for="name">Name:</label>
     <input type="name" class="form-control" placeholder="Enter name" id="name">
@@ -29,7 +26,7 @@ Sign up
     <label for="pwd">Password:</label>
     <input type="password" class="form-control" placeholder="Enter password" id="pwd">
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary">Sign In</button>
 </form> 
             </div>
             <!-- /.card -->

@@ -10,6 +10,6 @@ class User(models.Model):
     #  password should not be stored in textfield , it should be stored encrypted
 """
 class Task(models.Model):
-    created_by = models.ForeignKey(User,related_name="tasks")
+    created_by = models.ForeignKey(User,related_name="tasks",on_delete=models.DO_NOTHING)
     task = models.TextField()
 
