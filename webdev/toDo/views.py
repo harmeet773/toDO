@@ -24,6 +24,7 @@ def signin(request):
             usera = authenticate(request,username=name, password=password)
             if usera is not None:
                 login(request,usera)
+                request.session["name"]=name
                 return HttpResponseRedirect(reverse("home") )
             else :
                 return  HttpResponseRedirect(reverse("adduser"))           
@@ -35,7 +36,7 @@ def adduser(request):
     if request.method != "POST":
         return render(request,"toDo/signup.html")
     else:
-        email = request.POST[""] 
+        email = request.POST["email"] 
         print("request is                 " , request , email)
         try:
             email = request.POST.get("email") 
@@ -49,18 +50,33 @@ def adduser(request):
             usera = authenticate(request,username=name, password=password)
             if usera is not None:
                 login(request,user)
+                request.session['name'] = name
                 return HttpResponseRedirect(reverse("home") )
             else :
                 return  HttpResponse("error occured")
         
         except Exception as e :
             print(e)
-
-
-def addtask(request):   
-    pass
+ 
+def signout(request):
+    logout(request)
+    request.session['name']= None
+    return HttpResponseRedirect(reverse("signin"))
 
 def home(request):
     if request.user.is_authenticated :
-        print(request.user)
-        return HttpResponse("sdfsdf")
+
+        user_name = request.session['name']
+        u = User.objects.get(username=user_name)
+        if request.method == "POST":
+            task = request.POST.get('task')
+            print("task is ", task)
+            s = Task(created_by=u,task=task)
+            s.save()
+
+        tasks_of_user = u.tasks.all()
+
+        return  render(request,"toDo/home.html",{
+            "user":user_name,
+            "tasks":tasks_of_user
+        })
